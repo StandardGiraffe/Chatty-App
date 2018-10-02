@@ -6,7 +6,7 @@ class Messages extends Component {
 
     return (
       <main className="messages">
-        <MessageList />
+        <MessageList messages={this.props.messages}/>
         <div className="message system">
           Anonymous1 changed their name to nomnom.
         </div>
