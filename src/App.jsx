@@ -28,8 +28,8 @@ class App extends Component {
 
   }
 
-  handleNameChange = (e) => {
-    const updatedName = e.target.value;
+  handleNameChange = (valueChange) => {
+    const updatedName = valueChange.target.value;
     this.setState({currentUser: {name: updatedName}});
   }
 
@@ -44,7 +44,6 @@ class App extends Component {
     this.socketToMe.onmessage = (event) => {
 
       const newMessage = JSON.parse(event.data);
-      // console.log(newMessage);
       const updatedMessages = this.state.messages.concat(newMessage);
       this.setState({ messages: updatedMessages }); // Update the message list
       // console.log(event.data);
