@@ -12,6 +12,7 @@ class App extends Component {
       currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
       messages: []
     }
+
   }
 
   onMessageSubmit = (messagePackage) => {
@@ -27,6 +28,11 @@ class App extends Component {
     this.socketToMe.send(JSON.stringify(newMessage));
 
 
+  }
+
+  handleNameChange = (e) => {
+    const updatedName = e.target.value;
+    this.setState({currentUser: {name: updatedName}});
   }
 
 
@@ -54,7 +60,7 @@ class App extends Component {
       <div>
         <NavBar />
         <Messages messages={this.state.messages}/>
-        <ChatBar currentUser={this.state.currentUser.name} onMessageSubmit={this.onMessageSubmit}/>
+        <ChatBar currentUser={this.state.currentUser.name} onMessageSubmit={this.onMessageSubmit} onNameChange={this.handleNameChange}/>
       </div>
     );
   }
