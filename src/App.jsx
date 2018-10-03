@@ -18,15 +18,13 @@ class App extends Component {
   onMessageSubmit = (messagePackage) => {
     // Package the message into an object
     const newMessage = {
-      username: messagePackage.username,
+      username: this.state.currentUser.name,
       content: messagePackage.content,
       type: "message"
     }
-    // concat the message into the existing messages, inside the state
 
     // Publishes messages to the server.  (USE SOON)
     this.socketToMe.send(JSON.stringify(newMessage));
-
 
   }
 

@@ -11,7 +11,6 @@ class ChatBar extends Component {
       // send the message to the this.props.messageSubmit function, passed down from App
 
       const messageReceived = {
-        username: document.getElementById('chatbar-username').value,
         content: event.target.value
       }
       this.props.onMessageSubmit(messageReceived);
