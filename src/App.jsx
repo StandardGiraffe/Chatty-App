@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ChatBar from './ChatBar.jsx';
 import NavBar from './NavBar.jsx';
 import Messages from './Messages.jsx';
+import uuidv4 from 'uuid/v4';
 
 // Parent component
 class App extends Component {
@@ -14,15 +15,41 @@ class App extends Component {
         {
           username: "Bob",
           content: "Has anyone seen my marbles?",
-          id: "001"
+          id: uuidv4()
         },
         {
           username: "Anonymous",
           content: "No, I think you lost them. You lost your marbles Bob. You lost them for good.",
-          id: "002"
+          id: uuidv4()
         }
       ]
     }
+  }
+
+  onMessageSubmit = (messagePackage) => {
+    // Package the message into an object
+    const newMessage = {
+      username: messagePackage.username,
+      content: messagePackage.content,
+      type: "message",
+      id: uuidv4()
+    }
+    // concat the message into the existing messages, inside the state
+    const messages = this.state.messages.concat(newMessage);
+    this.setState({ messages: messages }); // Update the message list
+  }
+
+  componentDidMount() {
+    // console.log("componentDidMount <App />");
+    // setTimeout(() => {
+    //   console.log("Simulating incoming message");
+    //   // Add a new message to the list of messages in the data store
+    //   const newMessage = {id: uuidv4(), username: "Michelle", content: "Hello there!"};
+    //   const messages = this.state.messages.concat(newMessage);
+    //   // Update the state of the app component.
+    //   // Calling setState will trigger a call to render() in App and all child components.
+    //   this.setState({messages: messages})
+    // }, 3000);
   }
 
   render() {
@@ -30,40 +57,13 @@ class App extends Component {
       <div>
         <NavBar />
         <Messages messages={this.state.messages}/>
-        <ChatBar currentUser={this.state.currentUser.name} />
+        <ChatBar currentUser={this.state.currentUser.name} onMessageSubmit={this.onMessageSubmit}/>
       </div>
     );
   }
 }
 
-// class Messages extends Component {
-//   render() {
 
-//     return (
-//       <main className="messages">
-//         <div className="message">
-//           <span className="message-username">Anonymous1</span>
-//           <span className="message-content">I won't be impressed with technology until I can download food.</span>
-//         </div>
-//         <div className="message system">
-//           Anonymous1 changed their name to nomnom.
-//         </div>
-//       </main>
-//     );
-//   }
-// }
-
-// class ChatBar extends Component {
-//   render() {
-
-//     return (
-//       <footer className="chatbar">
-//         <input className="chatbar-username" placeholder="Your Name (Optional)" />
-//         <input className="chatbar-message" placeholder="Type a message and hit ENTER" />
-//       </footer>
-//     )
-//   }
-// }
 
 export default App;
 
