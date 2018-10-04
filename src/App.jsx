@@ -10,7 +10,8 @@ class App extends Component {
 
     this.state = {
       currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
-      messages: []
+      messages: [],
+      population: 0
     }
 
   }
@@ -46,11 +47,20 @@ class App extends Component {
     this.socketToMe.onmessage = (event) => {
       const newMessage = JSON.parse(event.data);
 
-      if (newMessage.type === "receivedError") {
-        console.log("Server sent an unknown message type.  Lah lah lah, I can't hear it.");
-      } else {
-        const updatedMessages = this.state.messages.concat(newMessage);
-        this.setState({ messages: updatedMessages }); // Update the message list
+      switch (newMessage.type) {
+        case "receivedError":
+          console.log("Server sent an unknown message type.  Lah lah lah, I can't hear it.");
+          break;
+
+        case "incomingConnectionEvent":
+          console.log(newMessage.content);
+          this.setState({population: newMessage.population});
+          break;
+
+        default:
+          const updatedMessages = this.state.messages.concat(newMessage);
+          this.setState({ messages: updatedMessages }); // Update the message list
+          break;
       }
 
     }
@@ -61,7 +71,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <NavBar />
+        <NavBar population={this.state.population}/>
         <Messages messages={this.state.messages}/>
         <ChatBar currentUser={this.state.currentUser.name} onMessageSubmit={this.onMessageSubmit} />
       </div>
