@@ -25,11 +25,14 @@ class App extends Component {
 
     if (newMessage.type === "postUserUpdate") {
       this.setState({currentUser: {name: messagePackage.newUserName} });
-      // STILL TO DO: SET UP MESSAGE SWITCH BY TYPE (EG. MESSAGE VS SYSTEM NOTIFICATION).  SLEEP.
     }
 
     // Publishes messages to the server.  (USE SOON)
     this.socketToMe.send(JSON.stringify(newMessage));
+
+  }
+
+  buildSystemNotification = (messagePackage) => {
 
   }
 
@@ -41,10 +44,23 @@ class App extends Component {
     }
 
     this.socketToMe.onmessage = (event) => {
-
       const newMessage = JSON.parse(event.data);
-      const updatedMessages = this.state.messages.concat(newMessage);
-      this.setState({ messages: updatedMessages }); // Update the message list
+
+      // switch (newMessage.type) {
+      //   case "postUserUpdate":
+      //   console.log("I got a user change!");
+
+      //   break;
+
+      //   case "postMessage":
+          const updatedMessages = this.state.messages.concat(newMessage);
+          this.setState({ messages: updatedMessages }); // Update the message list
+      //     break;
+
+      //   default:
+      //     console.log(newMessage.type + "?!  What kind of message is that?!");
+      // }
+
       // console.log(event.data);
     }
 
