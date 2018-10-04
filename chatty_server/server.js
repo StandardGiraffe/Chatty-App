@@ -67,11 +67,11 @@ const connectionEventDescription = (direction) => {
   }
 
   if (direction === "arrival") {
-    const announcement = `A new user has connected.  There is/are now ${wss.clients.size} of us!`;
+    const announcement = `A new user has connected.`;
     messageObject.content = announcement;
 
   } else if (direction === "departure") {
-    const announcement = `A user has departed.  And then there was/were ${wss.clients.size}.`;
+    const announcement = `A user has departed.`;
     messageObject.content = announcement;
 
   } else { return null; }
