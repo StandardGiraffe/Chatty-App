@@ -25,11 +25,11 @@ const validateMessages = (messageObject) => {
       switch (messageObject.type) {
 
       case "postUserUpdate":
-        messageObject.type = "receivedUserUpdate";
+        messageObject.type = "incomingUserUpdate";
       break;
 
       case "postMessage":
-        messageObject.type = "receivedMessage";
+        messageObject.type = "incomingMessage";
       break;
 
       // default:
@@ -53,20 +53,31 @@ const broadcastMessage = (messageObject) => {
 }
 
 // Builds a message containing connection event type and current number of connected clients.
-const connectionEventNotification = (direction) => {
+const populationUpdate = () => {
   const messageObject = {
-    type: "incomingConnectionEvent",
+    type: "incomingPopulationUpdate",
     population: wss.clients.size
   }
+  return messageObject;
+}
+
+const connectionEventDescription = (direction) => {
+  const messageObject = {
+    type: "incomingUserUpdate"
+  }
+
   if (direction === "arrival") {
     const announcement = `A new user has connected.  There is/are now ${wss.clients.size} of us!`;
     messageObject.content = announcement;
+
   } else if (direction === "departure") {
     const announcement = `A user has departed.  And then there was/were ${wss.clients.size}.`;
-    messageObject.direction = announcement;
+    messageObject.content = announcement;
+
   } else { return null; }
 
   return messageObject;
+
 }
 
 // Set up a callback that will run when a client connects to the server
@@ -74,7 +85,9 @@ const connectionEventNotification = (direction) => {
 // the ws parameter in the callback.
 wss.on('connection', (ws) => {
   console.log('A client has connected!  Current number of connected clients:', wss.clients.size);
-  broadcastMessage(connectionEventNotification("arrival"));
+  broadcastMessage(populationUpdate());
+  broadcastMessage(connectionEventDescription("arrival"));
+
 
   ws.on('message', (data) => {
 
@@ -85,7 +98,8 @@ wss.on('connection', (ws) => {
 
   // Set up a callback for when a client closes the socket. This usually means they closed their browser.
   ws.on('close', () => {
-    console.log('A client has connected!  Current number of connected clients:', wss.clients.size);
-    broadcastMessage(connectionEventNotification("departure"));
+    // console.log('A client has departed!  Current number of connected clients:', wss.clients.size);
+    broadcastMessage(populationUpdate());
+    broadcastMessage(connectionEventDescription("departure"));
   });
 });

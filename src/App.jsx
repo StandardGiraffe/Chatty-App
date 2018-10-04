@@ -52,9 +52,11 @@ class App extends Component {
           console.log("Server sent an unknown message type.  Lah lah lah, I can't hear it.");
           break;
 
-        case "incomingConnectionEvent":
+        case "incomingPopulationUpdate":
           console.log(newMessage.content);
+          // newMessage.type = "postUserUpdate";
           this.setState({population: newMessage.population});
+
           break;
 
         default:
