@@ -35,9 +35,8 @@ class ChatBar extends Component {
             }
             this.setState({ currentUser: this.state.editedUser});
             this.props.onMessageSubmit(messageReceived);
-            console.log("Message to the server:", messageReceived);
           } else {
-            console.log("Username hasn't changed.");
+            console.log("Ignoring submission: Username hasn't changed.");
           }
           break;
       }

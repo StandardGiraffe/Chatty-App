@@ -11,7 +11,7 @@ class MessageList extends Component {
           switch (message.type) {
 
             // Format for a normal user's message...
-            case "postMessage":
+            case "receivedMessage":
               return (
                 <div className="message" key={message.id}>
                   <span className="message-username">{message.username}</span>
@@ -21,7 +21,7 @@ class MessageList extends Component {
             break;
 
             // Format for a system message: User update.  (Probably should make this universal.)
-            case "postUserUpdate":
+            case "receivedUserUpdate":
               return (
                 <div className="message system" key={message.id}>
                   {message.content}

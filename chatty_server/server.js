@@ -28,6 +28,21 @@ wss.on('connection', (ws) => {
     const dataObject = JSON.parse(data);
     dataObject.id = uuidv4();
 
+    switch (dataObject.type) {
+
+      case "postUserUpdate":
+        dataObject.type = "receivedUserUpdate";
+      break;
+
+      case "postMessage":
+        dataObject.type = "receivedMessage";
+      break;
+
+      default:
+        dataObject.type = "receivedError";
+      break;
+    }
+
     // Now that the random ID has been tacked on, send it out to all connected clients in a stringified version.
     wss.clients.forEach(function each(client) {
       if (client.readyState === WebSocket.OPEN) {

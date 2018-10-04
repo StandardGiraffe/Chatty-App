@@ -46,22 +46,13 @@ class App extends Component {
     this.socketToMe.onmessage = (event) => {
       const newMessage = JSON.parse(event.data);
 
-      // switch (newMessage.type) {
-      //   case "postUserUpdate":
-      //   console.log("I got a user change!");
+      if (newMessage.type === "receivedError") {
+        console.log("Server sent an unknown message type.  Lah lah lah, I can't hear it.");
+      } else {
+        const updatedMessages = this.state.messages.concat(newMessage);
+        this.setState({ messages: updatedMessages }); // Update the message list
+      }
 
-      //   break;
-
-      //   case "postMessage":
-          const updatedMessages = this.state.messages.concat(newMessage);
-          this.setState({ messages: updatedMessages }); // Update the message list
-      //     break;
-
-      //   default:
-      //     console.log(newMessage.type + "?!  What kind of message is that?!");
-      // }
-
-      // console.log(event.data);
     }
 
   }
