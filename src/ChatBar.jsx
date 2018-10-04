@@ -2,22 +2,52 @@ import React, {Component} from 'react';
 
 
 class ChatBar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      currentUser: this.props.currentUser,
+      editedUser: this.props.currentUser
+    }
+  }
 
   // Listens for keypresses in the message field.  In the event of Enter being pressed, calls the message-packaging function passed down from App.jsx, feeding it the contents of the username and message fields.
-
 
   keypressHandler = (event) => {
     if (event.key === 'Enter') {
       // send the message to the this.props.messageSubmit function, passed down from App
+      switch (event.target.name) {
+        case "content":
+          const messageReceived = {
+            content: event.target.value,
+            type: "postMessage" }
+          this.props.onMessageSubmit(messageReceived);
+          event.target.value = "";
+          break;
 
-      const messageReceived = {
-        content: event.target.value
+        case "username":
+          if (this.state.currentUser !== this.state.editedUser) {
+            const userChangeMessage = `${this.state.currentUser} changed their name to ${this.state.editedUser}.`;
+            const messageReceived = {
+              content: userChangeMessage,
+              newUserName: this.state.editedUser,
+              type: "postUserUpdate"
+            }
+            this.setState({ currentUser: this.state.editedUser});
+            this.props.onMessageSubmit(messageReceived);
+            console.log("Message to the server:", messageReceived);
+          } else {
+            console.log("Username hasn't changed.");
+          }
+          break;
       }
-      this.props.onMessageSubmit(messageReceived);
 
-      // then, reset the value in the message field to "".
-      event.target.value = "";
     }
+  }
+
+  onNameChange = (event) => {
+    const updatedName = event.target.value;
+    this.setState({editedUser: updatedName});
   }
 
   render() {
@@ -29,8 +59,9 @@ class ChatBar extends Component {
           id="chatbar-username"
           name="username"
           placeholder="Your Name (Optional)"
-          value={this.props.currentUser}
-          onChange={this.props.onNameChange}
+          value={this.state.editedUser}
+          onKeyPress={this.keypressHandler}
+          onChange={this.onNameChange}
         />
         <input
           className="chatbar-message"
@@ -39,7 +70,7 @@ class ChatBar extends Component {
           onKeyPress={this.keypressHandler}
         />
       </footer>
-    )
+    );
   }
 }
 

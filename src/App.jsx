@@ -20,19 +20,18 @@ class App extends Component {
     const newMessage = {
       username: this.state.currentUser.name,
       content: messagePackage.content,
-      type: "message"
+      type: messagePackage.type
+    }
+
+    if (newMessage.type === "postUserUpdate") {
+      this.setState({currentUser: {name: messagePackage.newUserName} });
+      // STILL TO DO: SET UP MESSAGE SWITCH BY TYPE (EG. MESSAGE VS SYSTEM NOTIFICATION).  SLEEP.
     }
 
     // Publishes messages to the server.  (USE SOON)
     this.socketToMe.send(JSON.stringify(newMessage));
 
   }
-
-  handleNameChange = (valueChange) => {
-    const updatedName = valueChange.target.value;
-    this.setState({currentUser: {name: updatedName}});
-  }
-
 
   componentDidMount() {
     this.socketToMe = new WebSocket("ws://localhost:3001");
@@ -57,7 +56,7 @@ class App extends Component {
       <div>
         <NavBar />
         <Messages messages={this.state.messages}/>
-        <ChatBar currentUser={this.state.currentUser.name} onMessageSubmit={this.onMessageSubmit} onNameChange={this.handleNameChange}/>
+        <ChatBar currentUser={this.state.currentUser.name} onMessageSubmit={this.onMessageSubmit} />
       </div>
     );
   }
