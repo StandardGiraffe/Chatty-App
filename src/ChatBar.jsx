@@ -8,7 +8,7 @@ class ChatBar extends Component {
     this.state = {
       currentUser: this.props.currentUser,
       editedUser: this.props.currentUser,
-      usernameFieldStyle: {"background-color": "white"}
+      usernameFieldStyle: {"backgroundColor": "white"}
     }
   }
 
@@ -35,7 +35,7 @@ class ChatBar extends Component {
               type: "postUserUpdate"
             }
             this.setState({ currentUser: this.state.editedUser}, () => {
-              this.setState({usernameFieldStyle: {"background-color": "white"}});
+              this.setState({usernameFieldStyle: {"backgroundColor": "white"}});
             });
             this.props.onMessageSubmit(messageReceived);
           } else {
@@ -51,9 +51,9 @@ class ChatBar extends Component {
     const updatedName = event.target.value;
     this.setState({editedUser: updatedName}, () => {
       if (this.state.editedUser !== this.state.currentUser) {
-        this.setState({usernameFieldStyle: {"background-color": "cornsilk"}});
+        this.setState({usernameFieldStyle: {"backgroundColor": "cornsilk"}});
       } else {
-        this.setState({usernameFieldStyle: {"background-color": "white"}});
+        this.setState({usernameFieldStyle: {"backgroundColor": "white"}});
       }
     });
   }
