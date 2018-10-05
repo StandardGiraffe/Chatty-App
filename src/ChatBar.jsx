@@ -8,7 +8,7 @@ class ChatBar extends Component {
     this.state = {
       currentUser: this.props.currentUser,
       editedUser: this.props.currentUser,
-      userBox: {"background-color": "white"}
+      usernameFieldStyle: {"background-color": "white"}
     }
   }
 
@@ -35,7 +35,7 @@ class ChatBar extends Component {
               type: "postUserUpdate"
             }
             this.setState({ currentUser: this.state.editedUser}, () => {
-              this.setState({userBox: {"background-color": "white"}});
+              this.setState({usernameFieldStyle: {"background-color": "white"}});
             });
             this.props.onMessageSubmit(messageReceived);
           } else {
@@ -51,9 +51,9 @@ class ChatBar extends Component {
     const updatedName = event.target.value;
     this.setState({editedUser: updatedName}, () => {
       if (this.state.editedUser !== this.state.currentUser) {
-        this.setState({userBox: {"background-color": "cornsilk"}});
+        this.setState({usernameFieldStyle: {"background-color": "cornsilk"}});
       } else {
-        this.setState({userBox: {"background-color": "white"}});
+        this.setState({usernameFieldStyle: {"background-color": "white"}});
       }
     });
   }
@@ -70,7 +70,7 @@ class ChatBar extends Component {
           value={this.state.editedUser}
           onKeyPress={this.keypressHandler}
           onChange={this.onNameChange}
-          style={this.state.userBox}
+          style={this.state.usernameFieldStyle}
         />
         <input
           className="chatbar-message"
