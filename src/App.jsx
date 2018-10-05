@@ -27,7 +27,7 @@ class App extends Component {
     console.log(`Packaging message to send to the server: ${JSON.stringify(newMessage)}`)
 
     if (newMessage.type === "postUserUpdate") {
-      this.setState({currentUser: {name: messagePackage.newUserName} });
+      this.setState({currentUser: {...this.state.currentUser, name: messagePackage.newUserName} });
     }
 
     // Publishes messages to the server.  (USE SOON)
