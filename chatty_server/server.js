@@ -80,11 +80,45 @@ const connectionEventDescription = (direction) => {
 
 }
 
+const assignColour = () => {
+
+  // Lifted from Stack Overflow: https://stackoverflow.com/questions/1484506/random-color-generator#1484514
+  function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  const messageObject = {
+    type: "incomingColourUpdate",
+    colour: getRandomColor()
+  }
+
+  return messageObject;
+}
+
+
+
+
+
+
+
+
+
 // Set up a callback that will run when a client connects to the server
 // When a client connects they are assigned a socket, represented by
 // the ws parameter in the callback.
 wss.on('connection', (ws) => {
   console.log('A client has connected!  Current number of connected clients:', wss.clients.size);
+  ws.send(JSON.stringify({
+    type: "incomingUserUpdate",
+    content: "The server greets you, new user!",
+    id: uuidv4()
+  }));
+  ws.send(JSON.stringify(assignColour()));
   broadcastMessage(populationUpdate());
   broadcastMessage(connectionEventDescription("arrival"));
 
@@ -92,6 +126,7 @@ wss.on('connection', (ws) => {
   ws.on('message', (data) => {
 
     const dataObject = JSON.parse(data);
+    console.log(`Server is broadcasting ${JSON.stringify(dataObject)}`);
     broadcastMessage(dataObject);
 
   });

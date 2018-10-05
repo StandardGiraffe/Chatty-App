@@ -12,9 +12,10 @@ class MessageList extends Component {
 
             // Format for a normal user's message...
             case "incomingMessage":
+
               return (
                 <div className="message" key={message.id}>
-                  <span className="message-username">{message.username}</span>
+                  <span className="message-username" style={{color: message.nameColour}}>{message.username}</span>
                   <span className="message-content">{message.content}</span>
                 </div>
               );

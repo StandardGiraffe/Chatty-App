@@ -21,8 +21,10 @@ class App extends Component {
     const newMessage = {
       username: this.state.currentUser.name,
       content: messagePackage.content,
-      type: messagePackage.type
+      type: messagePackage.type,
+      nameColour: this.state.currentUser.nameColour
     }
+    console.log(`Packaging message to send to the server: ${JSON.stringify(newMessage)}`)
 
     if (newMessage.type === "postUserUpdate") {
       this.setState({currentUser: {name: messagePackage.newUserName} });
@@ -56,8 +58,11 @@ class App extends Component {
           console.log(newMessage.content);
           // newMessage.type = "postUserUpdate";
           this.setState({population: newMessage.population});
-
           break;
+
+        case "incomingColourUpdate":
+          this.setState({currentUser: {...this.state.currentUser, nameColour: newMessage.colour}});
+          console.log("Your colour is:", this.state.currentUser.nameColour);
 
         default:
           const updatedMessages = this.state.messages.concat(newMessage);
@@ -73,9 +78,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <NavBar population={this.state.population}/>
+        <NavBar population={this.state.population} nameColour={this.state.currentUser.nameColour}/>
         <Messages messages={this.state.messages}/>
-        <ChatBar currentUser={this.state.currentUser.name} onMessageSubmit={this.onMessageSubmit} />
+        <ChatBar currentUser={this.state.currentUser.name} onMessageSubmit={this.onMessageSubmit} nameColour={this.state.currentUser.nameColour}/>
       </div>
     );
   }

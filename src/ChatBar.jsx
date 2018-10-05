@@ -21,8 +21,10 @@ class ChatBar extends Component {
         case "content":
           const messageReceived = {
             content: event.target.value,
+            nameColour: this.props.nameColour,
             type: "postMessage" }
           this.props.onMessageSubmit(messageReceived);
+          console.log(messageReceived);
           event.target.value = "";
           break;
 
@@ -61,7 +63,7 @@ class ChatBar extends Component {
   render() {
 
     return (
-      <footer className="chatbar">
+      <footer className="chatbar" style={{backgroundColor: this.props.nameColour}}>
         <input
           className="chatbar-username"
           id="chatbar-username"
