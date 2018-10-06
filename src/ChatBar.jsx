@@ -30,7 +30,7 @@ class ChatBar extends Component {
 
         case "username":
           if (this.state.currentUser !== this.state.editedUser) {
-            const userChangeMessage = `${this.state.currentUser} changed their name to ${this.state.editedUser}.`;
+            const userChangeMessage = (this.state.currentUser) ? `${this.state.currentUser} changed their name to ${this.state.editedUser}.` : `${this.state.editedUser} has been unmasked!`;
             const messageReceived = {
               content: userChangeMessage,
               newUserName: this.state.editedUser,

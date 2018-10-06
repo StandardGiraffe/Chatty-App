@@ -9,7 +9,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentUser: {name: "Bob"}, // optional. if currentUser is not defined, it means the user is Anonymous
+      currentUser: {name: ""}, // optional. if currentUser is not defined, it means the user is Anonymous
       messages: [],
       population: 0
     }
@@ -19,7 +19,7 @@ class App extends Component {
   onMessageSubmit = (messagePackage) => {
     // Package the message into an object
     const newMessage = {
-      username: this.state.currentUser.name,
+      username: (this.state.currentUser.name) ? (this.state.currentUser.name) : "Anonymous",
       content: messagePackage.content,
       type: messagePackage.type,
       nameColour: this.state.currentUser.nameColour
@@ -30,7 +30,6 @@ class App extends Component {
       this.setState({currentUser: {...this.state.currentUser, name: messagePackage.newUserName} });
     }
 
-    // Publishes messages to the server.  (USE SOON)
     this.socketToMe.send(JSON.stringify(newMessage));
 
   }
