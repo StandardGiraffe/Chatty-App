@@ -1,14 +1,14 @@
 {
-  "name": "ChattyApp",
+  "name": "SeemlyColloquy",
   "version": "1.0.0",
-  "description": "Slack clone based on Lighthouse Labs' React boilerplate",
+  "description": "Lighthouse Labs project: Real-time chat application using React and Websockets, based on Lighthouse Labs' React boilerplate (https://github.com/noahlotzer/react-simple-boilerplate.git)",
   "scripts": {
     "lint": "eslint --ext .jsx,.js src",
     "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/noahlotzer/react-simple-boilerplate.git"
+    "url": "https://github.com/StandardGiraffe/Chatty-App"
   },
   "keywords": [
     "react",
@@ -21,10 +21,7 @@
   ],
   "author": "Danny Fekete",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/noahlotzer/react-simple-boilerplate/issues"
-  },
-  "homepage": "https://github.com/StandardGiraffe/Chatty-App",
+  "homepage": "https://github.com/StandardGiraffe/",
   "engines": {
     "node": ">=6.0.0"
   },
