@@ -5,8 +5,8 @@ class NavBar extends Component {
 
     return (
     <nav className="navbar" style={{backgroundColor: this.props.nameColour}}>
-      <a href="/" className="navbar-brand">Chatty</a>
-      <p className="navbar-usercount">Current population: {this.props.population}</p>
+      <a href="/" className="navbar-brand"><img src="./build/assets/logo.png" className="navbar-logo"/>Seemly Colloquy</a>
+      <p className="navbar-usercount">Diologists present: {this.props.population}</p>
     </nav>
     );
   }

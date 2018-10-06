@@ -1,5 +1,16 @@
+// ###################
+// Import dependencies
+// ###################
+
 import React, {Component} from 'react';
 
+
+
+// ################
+// ################
+// Parent Component
+// ################
+// ################
 
 class ChatBar extends Component {
   constructor(props) {
@@ -12,12 +23,21 @@ class ChatBar extends Component {
     }
   }
 
+
+
+  // #############
+  // App Functions
+  // #############
+
   // Listens for keypresses in the message field.  In the event of Enter being pressed, calls the message-packaging function passed down from App.jsx, feeding it the contents of the username and message fields.
 
+
+  // (This should be refactored up to the parent.)  Listens for the ENTER keypress. When received, determines action based on which field was confirmed.
   keypressHandler = (event) => {
     if (event.key === 'Enter') {
-      // send the message to the this.props.messageSubmit function, passed down from App
       switch (event.target.name) {
+
+        // Message field was confirmed: Packages the contents of the message field, user's colour, and labels as a message, then passes the data up to the message submission apparatus in the parent app.
         case "content":
           const messageReceived = {
             content: event.target.value,
@@ -28,9 +48,10 @@ class ChatBar extends Component {
           event.target.value = "";
           break;
 
+        // Username field was confirmed: Checks to see if a change was indeed made to the username.  If so, checks to see if the user was previously anonymous, and presents a different message in that case.  Either way, the notification of a new user name is packaged and sent up to the parent app for submission to the server.
         case "username":
           if (this.state.currentUser !== this.state.editedUser) {
-            const userChangeMessage = (this.state.currentUser) ? `${this.state.currentUser} changed their name to ${this.state.editedUser}.` : `${this.state.editedUser} has been unmasked!`;
+            const userChangeMessage = (this.state.currentUser) ? `${this.state.currentUser} would prefer to be called ${this.state.editedUser}.` : `${this.state.editedUser} has been unmasked!`;
             const messageReceived = {
               content: userChangeMessage,
               newUserName: this.state.editedUser,
@@ -49,6 +70,8 @@ class ChatBar extends Component {
     }
   }
 
+
+  // (This should be refactored up to the parent.) Controls the content of the username field.  When a discrepancy is noticed between the current username and the contents of the field (indicating an unconfirmed change to the contents), the field is coloured "cornsilk".
   onNameChange = (event) => {
     const updatedName = event.target.value;
     this.setState({editedUser: updatedName}, () => {
@@ -60,6 +83,13 @@ class ChatBar extends Component {
     });
   }
 
+
+
+
+  // ############################
+  // Render ChatBar for the user.
+  // ############################
+
   render() {
 
     return (
@@ -68,7 +98,7 @@ class ChatBar extends Component {
           className="chatbar-username"
           id="chatbar-username"
           name="username"
-          placeholder="Your Name (Optional)"
+          placeholder="Your sobriquet?"
           value={this.state.editedUser}
           onKeyPress={this.keypressHandler}
           onChange={this.onNameChange}
@@ -77,7 +107,7 @@ class ChatBar extends Component {
         <input
           className="chatbar-message"
           name="content"
-          placeholder="Type a message and hit ENTER"
+          placeholder="Contribute discourse?  (Kindly press ENTER when ready.)"
           onKeyPress={this.keypressHandler}
         />
       </footer>
