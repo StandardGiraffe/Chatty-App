@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 class MessageList extends Component {
 
 
+  // The message list component renders messages in different formats depending on their type properties.
   render() {
     return(
       <div>
@@ -10,7 +11,7 @@ class MessageList extends Component {
 
           switch (message.type) {
 
-            // Format for a normal user's message...
+            // Normal user messages are rendered with coloured usernames and text.
             case "incomingMessage":
 
               return (
@@ -21,8 +22,8 @@ class MessageList extends Component {
               );
             break;
 
-            // Format for a system message: User update.  (Probably should make this universal.)
-            case "incomingUserUpdate":
+            // System messages are formatted in italics without a username in order to set them apart.
+            case "incomingSystemMessage":
               return (
                 <div className="message system" key={message.id}>
                   {message.content}

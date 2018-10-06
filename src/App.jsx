@@ -65,7 +65,7 @@ class App extends Component {
 
     // Success is reported.
     this.socketToMe.onopen = function (event) {
-      console.log("Hello!  You done connectified.");
+      console.log("The server welcomes you.");
     }
 
     // On receipt of messages from the server...
