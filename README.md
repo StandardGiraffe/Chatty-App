@@ -4,7 +4,10 @@ Danny Fekete
 
 A project based on [Lighthouse Labs](https://www.lighthouselabs.ca/)' Chatty-App assignment.  This was built using the provided [React Simple Boilerplate](https://github.com/lighthouse-labs/react-simple-boilerplate).
 
+!["Name-changing in action"](https://media.giphy.com/media/WvuE4vltyOq2Do5dCl/giphy.gif)
+(Or see the full video [here](https://youtu.be/xNkNWXxnZEo).)
 
+!["An ongoing conversation in multiple browser windows."](https://raw.githubusercontent.com/StandardGiraffe/Chatty-App/master/docs/chat-in-progress.png)
 
 ### Installation and Startup:
 The repository contains both the front-end application in `chatty-app/` and the server in `chatty-app/chatty_server/`.  After cloning the repository, ensure that you install dependencies for both as follows:
