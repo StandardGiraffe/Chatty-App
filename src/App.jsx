@@ -80,7 +80,6 @@ class App extends Component {
 
         // Update the interface to display the new global population.
         case "incomingPopulationUpdate":
-          console.log(newMessage.content);
           this.setState({population: newMessage.population});
           break;
 
