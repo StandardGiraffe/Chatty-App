@@ -1,7 +1,7 @@
 {
   "name": "chatty_server",
   "version": "1.0.0",
-  "description": "Websocket server for Chatty-app",
+  "description": "Websocket server for Seemly Colloquy.",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
