@@ -51,7 +51,7 @@ class ChatBar extends Component {
         // Username field was confirmed: Checks to see if a change was indeed made to the username.  If so, checks to see if the user was previously anonymous, and presents a different message in that case.  Either way, the notification of a new user name is packaged and sent up to the parent app for submission to the server.
         case "username":
           if (this.state.currentUser !== this.state.editedUser) {
-            const userChangeMessage = (this.state.currentUser) ? `${this.state.currentUser} would prefer to be called ${this.state.editedUser}.` : `${this.state.editedUser} has been unmasked!`;
+            const userChangeMessage = (this.state.currentUser) && (this.state.editedUser) ? `${this.state.currentUser} would prefer to be called ${this.state.editedUser}.` : (this.state.currentUser) && !(this.state.editedUser) ? `${this.state.currentUser} has returned to anonymity.` : `${this.state.editedUser} has been unmasked!`;
             const messageReceived = {
               content: userChangeMessage,
               newUserName: this.state.editedUser,
